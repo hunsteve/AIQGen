@@ -3,15 +3,6 @@ import pygraphviz as pgv
 import random
 import math
 
-def char_range(c1, c2):
-    ret = []
-    for c in xrange(ord(c1), ord(c2)+1):
-        ret.append(chr(c))
-    return ret
-
-
-
-
 def minimaxgraph(minbranch = [2,2,1,0], maxbranch = [2,2,3,4], maxvalue = 20, minvalue = -20, seed = None, diffsymbol = 0, maxdepth = None):    
     
     random.seed(seed)
