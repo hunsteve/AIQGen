@@ -39,7 +39,7 @@ def minimaxgraph(minbranch = [2,2,1,0], maxbranch = [2,2,3,4], maxvalue = 20, mi
         
     for i in range(len(graph)):        
         if math.isnan(values[i]):
-            G.get_node(i).attr['label'] = ""
+            G.get_node(i).attr['label'] = ""            
             if diffsymbol:
                 if depths[i]%2:
                     G.get_node(i).attr['shape'] = "rectangle"
@@ -53,6 +53,9 @@ def minimaxgraph(minbranch = [2,2,1,0], maxbranch = [2,2,3,4], maxvalue = 20, mi
         for child in graph[i]:
             G.get_edge(i, child).attr['dir'] = 'forward'
             G.get_edge(i, child).attr['arrowhead'] = 'odot'
+            G.get_edge(i, child).attr['id'] = '%d,%d'%(i, child)
+        G.get_node(i).attr['id'] = '%d'%i
+
     G.layout(prog="dot")      
 
     ismaxstarts = random.randint(0,1)==0
