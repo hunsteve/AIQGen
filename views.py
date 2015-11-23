@@ -8,7 +8,7 @@ from django.utils.encoding import smart_str, smart_unicode
 # Create your views here.
 
 def index(request):
-    return HttpResponse(u"<a href=astar>A* keresés</a><br><a href=minimax>minimax játékfa</a>")
+    return HttpResponse(u"<a href=astar>A* keresés</a><br><a href=minimax>minimax játékfa</a><br><a href=static/valami.html>v</a>")
     
 def processparams(request):
     urlparams = {}

@@ -1,8 +1,23 @@
 # coding: utf8
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.utils.encoding import smart_str, smart_unicode
 import pygraphviz as pgv
 import random
 import math
 
+def processparams(request):
+    urlparams = {}
+    for k,v in request.GET.dict().iteritems():
+        if k=="seed":
+            urlparams[k]=int(v)
+        if k=="minbranch" or k=="maxbranch":
+            ss = v.replace("[","").replace("]","").split(',')
+            urlparams[k]=[int(i) for i in ss]
+        else:
+            urlparams[k]=max(min(int(v),500),-500)
+    return urlparams
+    
 def adjacencyToEdgeDict(A):
     graph = {}
     for n in range(len(A)):
@@ -117,3 +132,22 @@ def astarsolver(A, H, goalNodes, nodeNames=None):
         else:
             ret = ret + ", ".join(["%d(%d,%d,%d)"%(i,H[i],g[i],f[i]) for i in openSet])
 
+
+def astar(request):
+    (G,A,H,goals)=astargraph(**processparams(request))
+    names = []
+    for i in range(len(A)):
+        names.append(G.get_node(i).attr['label'].split("\n")[0])
+
+    solution = astarsolver(A, H, goals, names)    
+
+    G.layout(prog="dot")
+    svgdata=G.draw(format='svg')
+
+    html = (u"<p>A* keresési algoritmussal találja meg a <i>start</i> pontból a <i>cél</i> "
+           u"pontig vezető legolcsóbb utat. Az útköltségek az éleken, a heurisztika értékek a "
+           u"körökben láthatók. A keresés előrehaladását Open listákkal adja meg táblázatosan. "
+           u"Az Open listán minden csomópont mellé jegyezze fel annak (h, Σg, f) értékét. A pillanatnyi "
+           u"legjobb csomópontot húzza alá! (5 pont)</p><div>%s</div><div>Megoldás:<pre><code>%s</code></pre></div>"%(svgdata.decode("utf-8"),solution))
+
+    return HttpResponse(html)

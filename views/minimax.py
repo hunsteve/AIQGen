@@ -1,8 +1,23 @@
 # coding: utf8
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.utils.encoding import smart_str, smart_unicode
 import pygraphviz as pgv
 import random
 import math
 
+def processparams(request):
+    urlparams = {}
+    for k,v in request.GET.dict().iteritems():
+        if k=="seed":
+            urlparams[k]=int(v)
+        if k=="minbranch" or k=="maxbranch":
+            ss = v.replace("[","").replace("]","").split(',')
+            urlparams[k]=[int(i) for i in ss]
+        else:
+            urlparams[k]=max(min(int(v),500),-500)
+    return urlparams
+    
 def minimaxgraph(minbranch = [2,2,1,0], maxbranch = [2,2,3,4], maxvalue = 20, minvalue = -20, seed = None, diffsymbol = 0, maxdepth = None):    
     
     random.seed(seed)
@@ -122,3 +137,24 @@ def minimaxsolver(G_in, graph, depths, values, ismaxstarts):
 
     G.layout(prog="dot")
     return G
+
+def minimax(request):
+
+    (G, graph, depths, values, ismaxstarts) = minimaxgraph(**processparams(request))            
+    G2 = minimaxsolver(G, graph, depths, values, ismaxstarts)    
+    svgdata = G.draw(format='svg')
+    svgdata2 = G2.draw(format='svg')
+
+    if ismaxstarts:
+        rootplayer = "MAX"
+    else:
+        rootplayer = "MIN"
+
+    html = (u"<p>Az ábrán látható egy játékfa. A feladat (a) megadni a %s játékoshoz tartozó gyökér minimax értékét "
+            u"a hiányzó hasznosságok beírásával, (b) bejelölni az élek végén lévő kis kör besatírozásával "
+            u"az alfa és a béta értékekre vonatkozó érveléssel együtt, hogy mely ágakat "
+            u"metszene el az alfa-béta metszés, ha a fa bejárása balról-jobbra történik. (5 pont)"
+            u"</p><div>%s</div><div>Megoldás:<br/>%s</div>"%(rootplayer, svgdata.decode("utf-8"),svgdata2.decode("utf-8")))
+
+    return HttpResponse(html)
+

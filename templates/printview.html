@@ -1,0 +1,139 @@
+<html>
+
+<head>
+	<title>print test</title>
+	<style type="text/css">
+		@page { 
+			size: landscape;
+			size: 16.5in 11.7in;
+		}
+		.page {
+			width: 1430px; height: 996px;
+			padding: 24px;
+			margin: 4px auto 4px auto;			
+			background: rgb(255,255,255);			
+			page-break-after: always;
+			page-break-inside: avoid;		
+			display: table;		
+		}
+		
+		div.halfpage {
+			width: 50%;					
+			height: 100%;	
+			padding: 24px;					
+		    display:table-cell;		   
+		    vertical-align: top;
+		    
+		}
+		div.rightborder {
+			border-right: 1px dashed;			
+		}
+
+		table.collapseborder {
+			border-collapse: collapse;
+		}
+		table td.border {
+			border: 1px solid;			
+		}		
+
+		div.codecell {
+			float: left; 
+			border: 1px solid; 
+			width: 25px;
+			height: 25px;
+		}
+
+		div.questionnumber {
+			float: left; 
+			margin: 20px 10px 0px 10px;
+			font-size: 13pt;			
+			font-weight:bold;
+		}
+
+		div.resultsquare {
+			float: right; 
+			width: 50px; 
+			height: 50px; 
+			border: 1px solid; 
+			margin: 20px 0px 0px 10px; 
+			text-align: right;  
+		}
+
+		
+	</style>
+
+</head>
+<!--width: 1430px; height: 996px;-->
+<!--width: 1478px; height: 1044px;-->
+<body style="font: 13px times new roman; color: rgb(0,0,0); background: rgb(64,92,128); padding: 0px; margin: 0px 0px 0px 0px;">
+	<div id="pages">
+		<div class="page">		
+			<div class="halfpage rightborder">
+				<p align="justify">
+				Á É Í Ó Ő Ö Ú Ű Ü Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut molestie feugiat ante non euismod. Suspendisse erat quam, elementum eu facilisis semper, mollis vel est. Donec ac massa a velit sodales aliquet eu quis enim. Nullam et risus semper, tincidunt lorem eget, ornare dui. Maecenas eu dictum erat. Donec ornare, tellus quis iaculis maximus, ligula tellus facilisis nunc, vitae suscipit nisi odio vel erat. Nulla posuere augue nibh. Ut id ipsum elementum, ullamcorper elit vitae, tristique diam. Vivamus dapibus odio tortor. Phasellus tincidunt lectus nisl, vel bibendum mi interdum sit amet. Phasellus felis lorem, ullamcorper non arcu ac, euismod auctor arcu. In hac habitasse platea dictumst. Maecenas maximus enim fringilla elit feugiat, eu suscipit ante lobortis.
+
+				Praesent facilisis scelerisque mi, ut sagittis tortor. Donec non feugiat lectus. Sed fringilla vulputate urna vitae aliquet. Proin erat quam, faucibus at nibh vitae, mattis viverra velit. Sed eu maximus ipsum, a venenatis dolor. Integer eu metus congue, pulvinar nibh nec, venenatis massa. Proin id sagittis eros. Vivamus quis dignissim turpis, sit amet pellentesque mauris. In ac ante lobortis, sagittis neque vel, porttitor tortor. Phasellus sodales quis sem id consequat. Vivamus commodo augue vel turpis malesuada rutrum. Nullam eu enim auctor, bibendum erat a, tempor metus. Donec sed arcu tellus.
+
+				Integer ultricies dictum interdum. Etiam viverra orci nulla, et consequat tellus lacinia eget. Cras non commodo lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas facilisis turpis massa, sed lobortis arcu tincidunt a. Fusce dapibus lectus eu semper vulputate. Nulla luctus tincidunt nunc, vitae ornare erat tristique feugiat. In eu gravida eros, ut maximus nisi.
+
+				Vivamus posuere urna dolor, sed suscipit turpis consectetur eget. Donec ut euismod risus. Suspendisse condimentum magna in nulla suscipit, quis gravida ipsum ultrices. Phasellus condimentum pulvinar placerat. Sed ut mattis lectus. Praesent sapien urna, dapibus a bibendum non, finibus ac tellus. Integer in nunc posuere, gravida leo nec, tristique tortor. Nullam sed tincidunt augue. Donec nulla massa, vulputate eget metus ac, sodales tempor nisl. Duis id velit nec dolor eleifend volutpat. Duis neque massa, rutrum id arcu at, ultricies ullamcorper nisl. Aenean tempus sem at quam consectetur, id ornare felis vehicula. Vestibulum sem mi, consequat sit amet metus in, varius venenatis dolor. Maecenas viverra tincidunt nulla, vitae aliquet urna scelerisque vitae. Cras mollis ante nec risus lacinia, quis blandit turpis vehicula.
+
+				Integer gravida, tortor tincidunt dignissim placerat, nunc est maximus enim, ac commodo ligula nunc ultrices turpis. Curabitur lobortis mi a libero molestie facilisis. Praesent suscipit blandit eros, quis vehicula purus venenatis in. Nullam in massa ac augue vulputate semper. Morbi feugiat nulla a ligula fermentum, non vehicula orci suscipit. Phasellus id orci id orci vestibulum venenatis. Donec ex elit, pretium nec iaculis scelerisque, faucibus ac nibh. Sed in purus et lorem tristique pretium.
+				</p>
+			</div>
+			<div class="halfpage">
+				
+				<table class="collapseborder" width="100%" height="50px" id="header">
+					<tr>
+						<td width="15%" valign="bottom"><b>MI pótZH</b></td>
+						<td width="10%" rowspan="2" align="center"><font size="8"><b>A</b></font></td>
+						<td width="10%" valign="bottom">Név:</td>
+						<td valign="bottom">____________________</td>
+						<td width="10%"  rowspan="2" align="center"><font size="8">&Sigma;</font></td>
+						<td width="48px" rowspan="2" class="border" align="right" valign="top"><font size="2">/50</font></td>		
+					</tr>
+					<tr>
+						<td valign="top"><b>2015. 11. 13.</b></td>
+						<td valign="top">Neptun:</td>
+						<td>
+						<div class="codecell"></div>
+						<div class="codecell"></div>
+						<div class="codecell"></div>
+						<div class="codecell"></div>
+						<div class="codecell"></div>
+						<div class="codecell"></div>
+						</td>			
+					</tr>
+				</table>
+				
+				<div class="questionnumber">1.</div>
+				<div class="resultsquare">/5</div>
+				<p align="justify">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut molestie feugiat ante non euismod. Suspendisse erat quam, elementum eu facilisis semper, mollis vel est. Donec ac massa a velit sodales aliquet eu quis enim. Nullam et risus semper, tincidunt lorem eget, ornare dui. Maecenas eu dictum erat. Donec ornare, tellus quis iaculis maximus, ligula tellus facilisis nunc, vitae suscipit nisi odio vel erat. Nulla posuere augue nibh. Ut id ipsum elementum, ullamcorper elit vitae, tristique diam. Vivamus dapibus odio tortor. Phasellus tincidunt lectus nisl, vel bibendum mi interdum sit amet. Phasellus felis lorem, ullamcorper non arcu ac, euismod auctor arcu. In hac habitasse platea dictumst. Maecenas maximus enim fringilla elit feugiat, eu suscipit ante lobortis.</p>
+				<p align="justify">
+
+				Praesent facilisis scelerisque mi, ut sagittis tortor. Donec non feugiat lectus. Sed fringilla vulputate urna vitae aliquet. Proin erat quam, faucibus at nibh vitae, mattis viverra velit. Sed eu maximus ipsum, a venenatis dolor. Integer eu metus congue, pulvinar nibh nec, venenatis massa. Proin id sagittis eros. Vivamus quis dignissim turpis, sit amet pellentesque mauris. In ac ante lobortis, sagittis neque vel, porttitor tortor. Phasellus sodales quis sem id consequat. Vivamus commodo augue vel turpis malesuada rutrum. Nullam eu enim auctor, bibendum erat a, tempor metus. Donec sed arcu tellus.
+
+				Integer ultricies dictum interdum. Etiam viverra orci nulla, et consequat tellus lacinia eget. Cras non commodo lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas facilisis turpis massa, sed lobortis arcu tincidunt a. Fusce dapibus lectus eu semper vulputate. Nulla luctus tincidunt nunc, vitae ornare erat tristique feugiat. In eu gravida eros, ut maximus nisi.
+
+				Vivamus posuere urna dolor, sed suscipit turpis consectetur eget. Donec ut euismod risus. Suspendisse condimentum magna in nulla suscipit, quis gravida ipsum ultrices. Phasellus condimentum pulvinar placerat. Sed ut mattis lectus. Praesent sapien urna, dapibus a bibendum non, finibus ac tellus. Integer in nunc posuere, gravida leo nec, tristique tortor. Nullam sed tincidunt augue. Donec nulla massa, vulputate eget metus ac, sodales tempor nisl. Duis id velit nec dolor eleifend volutpat. Duis neque massa, rutrum id arcu at, ultricies ullamcorper nisl. Aenean tempus sem at quam consectetur, id ornare felis vehicula. Vestibulum sem mi, consequat sit amet metus in, varius venenatis dolor. Maecenas viverra tincidunt nulla, vitae aliquet urna scelerisque vitae. Cras mollis ante nec risus lacinia, quis blandit turpis vehicula.
+
+				Integer gravida, tortor tincidunt dignissim placerat, nunc est maximus enim, ac commodo ligula nunc ultrices turpis. Curabitur lobortis mi a libero molestie facilisis. Praesent suscipit blandit eros, quis vehicula purus venenatis in. Nullam in massa ac augue vulputate semper. Morbi feugiat nulla a ligula fermentum, non vehicula orci suscipit. Phasellus id orci id orci vestibulum venenatis. Donec ex elit, pretium nec iaculis scelerisque, faucibus ac nibh. Sed in purus et lorem tristique pretium.
+				</p>
+			</div>				
+		</div>
+		<div class="page">
+			<div class="halfpage rightborder"></div>
+			<div class="halfpage"></div>
+		</div>
+		<div class="page">
+			<div class="halfpage rightborder"></div>
+			<div class="halfpage"></div>
+		</div>
+		<div class="page">
+			<div class="halfpage rightborder"></div>
+			<div class="halfpage"></div>
+		</div>
+	</div>
+</body>
+</html>
