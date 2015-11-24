@@ -5,20 +5,9 @@ from django.utils.encoding import smart_str, smart_unicode
 import pygraphviz as pgv
 import random
 import math
-
-def processparams(request):
-    urlparams = {}
-    for k,v in request.GET.dict().iteritems():
-        if k=="seed":
-            urlparams[k]=int(v)
-        if k=="minbranch" or k=="maxbranch":
-            ss = v.replace("[","").replace("]","").split(',')
-            urlparams[k]=[int(i) for i in ss]
-        else:
-            urlparams[k]=max(min(int(v),500),-500)
-    return urlparams
-    
-def minimaxgraph(minbranch = [2,2,1,0], maxbranch = [2,2,3,4], maxvalue = 20, minvalue = -20, seed = None, diffsymbol = 0, maxdepth = None):    
+from AIQGen.utils import processparams
+   
+def minimaxgraph(minbranch = [2,2,1,0], maxbranch = [2,2,3,3], maxvalue = 20, minvalue = -20, seed = None, diffsymbol = 0, maxdepth = None):    
     
     random.seed(seed)
 
@@ -48,13 +37,21 @@ def minimaxgraph(minbranch = [2,2,1,0], maxbranch = [2,2,3,4], maxvalue = 20, mi
     G=pgv.AGraph(graph)
     G.node_attr['shape']='circle'
     G.node_attr['fixedsize']='true'
+    G.node_attr['width']=0.33
+    G.node_attr['height']=0.33
+    G.node_attr['fontsize']=10
+    G.edge_attr['fontsize']=10
+    G.graph_attr['nodesep']=0.1
+    G.graph_attr['ranksep']=0.3
     G.graph_attr['rankdir']='TD'    
     G.graph_attr['nodesep']=0.1
+    G.graph_attr['size']=6
 
         
     for i in range(len(graph)):        
         if math.isnan(values[i]):
             G.get_node(i).attr['label'] = ""            
+            G.get_node(i).attr['width']=0.5
             if diffsymbol:
                 if depths[i]%2:
                     G.get_node(i).attr['shape'] = "rectangle"
@@ -138,7 +135,8 @@ def minimaxsolver(G_in, graph, depths, values, ismaxstarts):
     G.layout(prog="dot")
     return G
 
-def minimax(request):
+def minimax_question(request):
+    
 
     (G, graph, depths, values, ismaxstarts) = minimaxgraph(**processparams(request))            
     G2 = minimaxsolver(G, graph, depths, values, ismaxstarts)    
@@ -150,11 +148,28 @@ def minimax(request):
     else:
         rootplayer = "MIN"
 
-    html = (u"<p>Az ábrán látható egy játékfa. A feladat (a) megadni a %s játékoshoz tartozó gyökér minimax értékét "
-            u"a hiányzó hasznosságok beírásával, (b) bejelölni az élek végén lévő kis kör besatírozásával "
-            u"az alfa és a béta értékekre vonatkozó érveléssel együtt, hogy mely ágakat "
-            u"metszene el az alfa-béta metszés, ha a fa bejárása balról-jobbra történik. (5 pont)"
-            u"</p><div>%s</div><div>Megoldás:<br/>%s</div>"%(rootplayer, svgdata.decode("utf-8"),svgdata2.decode("utf-8")))
+    q = {}
+    a = {}
+
+    q['text'] = (u"Az ábrán látható egy játékfa. A feladat (a) megadni a %s játékoshoz tartozó gyökér minimax értékét "
+        u"a hiányzó hasznosságok beírásával, (b) bejelölni az élek végén lévő kis kör besatírozásával "
+        u"az alfa és a béta értékekre vonatkozó érveléssel együtt, hogy mely ágakat "
+        u"metszene el az alfa-béta metszés, ha a fa bejárása balról-jobbra történik.")%rootplayer
+
+    q['score'] = 5
+    q['extra'] = svgdata.decode("utf-8")
+
+    a['text'] = q['text']
+    a['score'] = q['score']
+    a['extra'] = svgdata2.decode("utf-8")
+
+    return (q,a)
+
+
+def minimax(request):
+    (q,a) = minimax_question(request)
+    
+    html = (u"<p>%s (%d pont)</p>%s<div>Megoldás:<br/>%s</div>"%(q['text'], q['score'], q['extra'], a['extra']))
 
     return HttpResponse(html)
 

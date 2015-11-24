@@ -5,18 +5,7 @@ from django.utils.encoding import smart_str, smart_unicode
 import pygraphviz as pgv
 import random
 import math
-
-def processparams(request):
-    urlparams = {}
-    for k,v in request.GET.dict().iteritems():
-        if k=="seed":
-            urlparams[k]=int(v)
-        if k=="minbranch" or k=="maxbranch":
-            ss = v.replace("[","").replace("]","").split(',')
-            urlparams[k]=[int(i) for i in ss]
-        else:
-            urlparams[k]=max(min(int(v),500),-500)
-    return urlparams
+from AIQGen.utils import processparams
     
 def adjacencyToEdgeDict(A):
     graph = {}
@@ -46,7 +35,14 @@ def astargraph(nodeCnt = 8, minedge = 2, maxedge = 3, spread = 3, mincost = 1, m
     G=pgv.AGraph(graph)
     G.node_attr['shape']='circle'
     G.node_attr['fixedsize']='true'
+    G.node_attr['width']=0.33
+    G.node_attr['height']=0.33
+    G.node_attr['fontsize']=10
+    G.edge_attr['fontsize']=10
+    G.graph_attr['nodesep']=0.1
+    G.graph_attr['ranksep']=0.1
     G.graph_attr['rankdir']='LR'
+    #G.graph_attr['size']=3
 
     goals = [nodeCnt-1]
     totalcosts = costsToGoal(A,goals)
@@ -133,7 +129,7 @@ def astarsolver(A, H, goalNodes, nodeNames=None):
             ret = ret + ", ".join(["%d(%d,%d,%d)"%(i,H[i],g[i],f[i]) for i in openSet])
 
 
-def astar(request):
+def astar_question(request):
     (G,A,H,goals)=astargraph(**processparams(request))
     names = []
     for i in range(len(A)):
@@ -144,10 +140,26 @@ def astar(request):
     G.layout(prog="dot")
     svgdata=G.draw(format='svg')
 
-    html = (u"<p>A* keresési algoritmussal találja meg a <i>start</i> pontból a <i>cél</i> "
-           u"pontig vezető legolcsóbb utat. Az útköltségek az éleken, a heurisztika értékek a "
-           u"körökben láthatók. A keresés előrehaladását Open listákkal adja meg táblázatosan. "
-           u"Az Open listán minden csomópont mellé jegyezze fel annak (h, Σg, f) értékét. A pillanatnyi "
-           u"legjobb csomópontot húzza alá! (5 pont)</p><div>%s</div><div>Megoldás:<pre><code>%s</code></pre></div>"%(svgdata.decode("utf-8"),solution))
+    q={}
+    a={}
+    q['text'] = (u"A* keresési algoritmussal találja meg a <i>start</i> pontból a <i>cél</i> "
+        u"pontig vezető legolcsóbb utat. Az útköltségek az éleken, a heurisztika értékek a "
+        u"körökben láthatók. A keresés előrehaladását Open listákkal adja meg táblázatosan. "
+        u"Az Open listán minden csomópont mellé jegyezze fel annak (h, Σg, f) értékét. A pillanatnyi "
+        u"legjobb csomópontot húzza alá!")
+    q['score'] = 5
+    q['extra'] = svgdata.decode("utf-8")
+
+    a['text'] = q['text']
+    a['score'] = q['score']
+    a['extra'] = solution    
+
+    return (q,a)
+
+def astar(request):
+    
+    q = astar_question(request)
+
+    html = u"<p>%s (%d pont)</p><div>%s</div><div>Megoldás:<pre><code>%s</code></pre></div>"%(q['text'], q['score'], q['extra'], a['extra'])
 
     return HttpResponse(html)
