@@ -158,8 +158,9 @@ def astar_question(request):
 
 def astar(request):
     
-    q = astar_question(request)
+    (q,a) = astar_question(request)
 
     html = u"<p>%s (%d pont)</p><div>%s</div><div>Megoldás:<pre><code>%s</code></pre></div>"%(q['text'], q['score'], q['extra'], a['extra'])
 
     return HttpResponse(html)
+

@@ -17,3 +17,6 @@ for i in range(6):
 	rect = driver.execute_script("return document.getElementById('header').getElementsByClassName('codecell')[%d].getBoundingClientRect();"%i)
 	neptun_cells.append(rect)
 print(neptun_cells)
+
+
+driver.quit()

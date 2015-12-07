@@ -1,0 +1,33 @@
+<html>
+
+<head>
+	<title>Exams</title>	
+</head>
+
+<body>
+	
+	<table >
+		<tr>
+			<th>Date</th>
+			<th>Name</th>			
+			<th>Group</th>
+			<th>Status</th>
+			<th>PV</th>
+			<th>E</th>
+			<th>D</th>
+		</tr>
+	{% for test in object_list %}
+		<tr>
+			<td>{{test.date|date:"Y. m. d."}}</td>
+			<td>{{test.name}}</td>
+			<td>{{test.group}}</td>
+			<td>{{test.status}}</td>
+			<td><a href="printview?examid={{test.id}}"><img src="static/printview.png" width="16px" height="16px" alt="view"></a></td>
+			<td><a href="{% url "test_edit" test.id %}"><img src="static/edit.svg" width="16px" height="16px" alt="edit"></a></td>
+			<td><a href="{% url "test_delete" test.id %}"><img src="static/delete.png" width="16px" height="16px" alt="delete"></a></td>
+		</tr>
+	{% endfor %}	
+	</table>
+	<a href="{% url "test_new" %}"><img src="static/new.svg" width="16px" height="16px" alt="new"></a>	
+</body>
+</html>
