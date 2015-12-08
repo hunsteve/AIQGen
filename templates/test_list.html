@@ -22,7 +22,7 @@
 			<td>{{test.name}}</td>
 			<td>{{test.group}}</td>
 			<td>{{test.status}}</td>
-			<td><a href="printview?examid={{test.id}}"><img src="static/printview.png" width="16px" height="16px" alt="view"></a></td>
+			<td><a href="{% url "printview" test.id %}"><img src="static/printview.png" width="16px" height="16px" alt="view"></a></td>
 			<td><a href="{% url "test_edit" test.id %}"><img src="static/edit.svg" width="16px" height="16px" alt="edit"></a></td>
 			<td><a href="{% url "test_delete" test.id %}"><img src="static/delete.png" width="16px" height="16px" alt="delete"></a></td>
 		</tr>

@@ -1,0 +1,50 @@
+<head>
+<script src="/static/ckeditor/ckeditor.js"></script>
+<script src="/static/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Done" />
+    <script>
+	    CKEDITOR.replace( 'id_text', {
+		    filebrowserUploadUrl: '{% url "upload" %}'
+		});
+	</script>
+	<script>
+		CKEDITOR.on('dialogDefinition', function (ev) {		  
+		  var dialogName = ev.data.name;
+		  var dialogDefinition = ev.data.definition;
+		  if (dialogName == 'image') {
+		  	 var uploadTab = dialogDefinition.getContents('Upload');
+
+		        for (var i = 0; i < uploadTab.elements.length; i++) {
+		            var el = uploadTab.elements[i];
+
+		            if (el.type !== 'fileButton') {
+		                continue;
+		            }
+
+		            // add onClick for submit button to add inputs or rewrite the URL
+		            var onClick = el.onclick;
+
+		            el.onClick = function(evt) {
+		                var dialog = this.getDialog();
+		                var fb = dialog.getContentElement(this['for'][0], this['for'][1]);
+		                var action = fb.getAction();
+		                var editor = dialog.getParentEditor();
+		                editor._.filebrowserSe = this;
+
+		                $(fb.getInputElement().getParent().$).append("{%csrf_token%}");
+		                if (onClick && onClick.call(evt.sender, evt) === false) {
+		                        return false;
+		                }
+
+		                return true;
+		            };
+		        }
+		  }
+		});
+	</script>
+</form>
+</body>

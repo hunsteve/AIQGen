@@ -1,11 +1,15 @@
  # coding: utf8
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 
 from AIQGen.views.astar import astar_question
 from AIQGen.views.minimax import minimax_question
 
-def printview(request):
+from AIQGen.models import Test, Problem
+
+
+def printview(request, pk):
+    test = get_object_or_404(Test, pk=pk)
     args = {}
     args['pages'] = []
 
@@ -18,25 +22,14 @@ def printview(request):
 
     (q6, a6) = minimax_question(None)
     q6['index']=6
-
        
-    hpage4A = {'left':True, 'questions': [q6]}    
-    hpage1A = {'left':False, 'header':{'title':'MI pótZH', 'group':'A', 'date':'2015. 11. 13.'}, 'questions': [q1, q2, q3, q4, q5]}   
+    hpage4 = {'left':True, 'questions': [q6]}    
+    hpage1 = {'left':False, 'header':test.__dict__, 'questions': [q1, q2, q3, q4, q5]}   
 
-    hpage2A = {'left':True}    
-    hpage3A = {'left':False}   
+    hpage2 = {'left':True, 'questions': [q6]}    
+    hpage3 = {'left':False, 'questions': [q6]}   
 
-    #---------------------------------------
-
-    hpage4B = {'left':True}    
-    hpage1B = {'left':False, 'header':{'title':'MI pótZH', 'group':'B', 'date':'2015. 11. 13.'}}   
-
-    hpage2B = {'left':True}    
-    hpage3B = {'left':False}   
-
-    args['pages'].append([hpage4A, hpage1A])
-    args['pages'].append([hpage2A, hpage3A])
-    args['pages'].append([hpage4B, hpage1B])
-    args['pages'].append([hpage2B, hpage3B])
+    args['pages'].append([hpage4, hpage1])
+    args['pages'].append([hpage2, hpage3])
 
     return render(request, 'printview.html', args)
