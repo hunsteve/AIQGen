@@ -1,0 +1,27 @@
+<html>
+
+<head>
+	<title>Select a Problem</title>	
+</head>
+
+<body>
+	Select a problem to add for exam {{test.date|date:"Y. m. d."}} {{test.name}} group: {{test.group}} 
+	<table >
+		<tr>
+			<th>Name</th>
+			<th>Score</th>						
+			<th>View</th>			
+			<th>Select</th>						
+		</tr>
+	{% for problem in problem_list %}
+		<tr>
+			<td>{{problem.name}}</td>
+			<td>{{problem.score}}</td>
+			<td><a href="{% url "problem_printview" problem.id %}"><img src="/static/printview.png" width="16px" height="16px" alt="view"></a></td>
+			<td><a href="{% url "test_problem_add" test.id problem.id %}">select</a></td>			
+		</tr>
+	{% endfor %}	
+	</table>	
+	{% include "footer.html" %}
+</body>
+</html>

@@ -2,85 +2,11 @@
 
 <head>
 	<title>print test</title>
-	<style type="text/css">
-		@page { 
-			size: landscape;
-			size: 16.5in 11.7in;
-		}
-		.page {
-			width: 1430px; height: 996px;
-			padding: 24px;
-			margin: 4px auto 4px auto;			
-			background: rgb(255,255,255);			
-			page-break-after: always;
-			page-break-inside: avoid;		
-			display: table;		
-		}
-		
-		div.halfpage {
-			width: 50%;					
-			height: 100%;	
-			padding: 24px;					
-		    display:table-cell;		   
-		    vertical-align: top;
-		    
-		}
-		div.rightborder {
-			border-right: 1px dashed;			
-		}
-
-		table.collapseborder {
-			border-collapse: collapse;
-		}
-		table td.border {
-			border: 1px solid;			
-		}		
-
-		div.codecell {
-			float: left; 
-			border: 1px solid; 
-			width: 25px;
-			height: 25px;
-		}
-
-		div.questionnumber {
-			float: left; 
-			margin: 0px 10px 0px 10px;
-			font-size: 13pt;			
-			font-weight:bold;
-		}
-
-		div.resultsquare {
-			float: right; 
-			width: 50px; 
-			height: 50px; 
-			border: 1px solid; 
-			margin: 0px 1px 0px 10px; 
-			text-align: right;  
-			/*position: absolute;
-			top: 0px;
-			right: 0px;*/
-		}
-
-		div.question {
-			width: 100%; 	
-			min-height: 52px;		
-			/*border: 1px dotted white;*/
-			border: 1px dotted orange;
-			/*position: relative;*/
-		}
-
-		div.question p {
-			margin: 0px 0px 0px 0px; 
-		}
-
-		
-	</style>
-
+	<link rel="stylesheet" type="text/css" href="/static/printview.css">
 </head>
 <!--width: 1430px; height: 996px;-->
 <!--width: 1478px; height: 1044px;-->
-<body style="font: 13px times new roman; color: rgb(0,0,0); background: rgb(64,92,128); padding: 0px; margin: 0px 0px 0px 0px;">
+<body>
 	<div id="pages">
 	{% for page in pages %}
 		<div class="page">		
@@ -95,15 +21,10 @@
 			{% endif %}
 			{% for question in halfpage.questions %}		
 
-				<div class="question" style="padding: 0% 0% {{question.freespace}}% 0%;">
+				<div class="question" style="padding: 0px 0px {{question.freespace}}px 0px;">
 					<div class="questionnumber">{{question.index}}.</div>
 					<div class="resultsquare">/{{question.score}}</div>					
-					<div style="float: right;">
-						{{question.extra | safe}}
-					</div>
-					<p align="justify">{{question.text | safe}}</p>						
-					<div style=" clear:both;"></div>
-					{{question.answer | safe}}
+					{{question.body | safe}}
 				</div>			
 			{% endfor %}
 			</div>

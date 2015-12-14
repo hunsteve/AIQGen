@@ -1,0 +1,40 @@
+<html>
+
+<head>
+	<title>Exam {{test.id}}</title>	
+</head>
+
+<body>
+	Problems in exam {{test.date|date:"Y. m. d."}} {{test.name}} group: {{test.group}}
+	<a href="{% url "test_printview" test.id %}"><img src="/static/printview.png" width="16px" height="16px" alt="view"></a>
+	<form method="post">
+	{% csrf_token %}
+	<table >
+		<tr>
+			<th>Name</th>
+			<th>Score</th>	
+			<th>Custom score</th>	
+			<th>Free space</th>								
+			<th>Question height</th>			
+			<th>Edit</th>
+			<th>Remove</th>
+		</tr>
+	{% for pit in pit_list %}
+		<tr>
+			<td>{{pit.problem.name}}</td>
+			<td>{{pit.problem.score}}</td>			
+			<td><input id="id_customscore_{{pit.id}}" name="id_customscore_{{pit.id}}" type="number" value="{{pit.customscore}}" /></td>				
+			<td><input id="id_customspacing_{{pit.id}}" name="id_customspacing_{{pit.id}}" type="number" step="any" value="{{pit.customspacing}}" /></td>
+			<td>{{pit.problem.measuredheight}}</td>
+			<td><a href="{% url "problem_edit" pit.problem.id %}"><img src="/static/edit.svg" width="16px" height="16px" alt="edit"></a></td>
+			<td><a href="{% url "test_problem_remove" pit.id %}"><img src="/static/delete.png" width="16px" height="16px" alt="delete"></a></td>
+		</tr>
+	{% endfor %}	
+	</table>
+	<input type="submit" value="Save changes" />
+	</form>
+	<a href="{% url "problem_new" test.id %}"><img src="/static/new.svg" width="16px" height="16px" alt="new"></a>	
+	<a href="{% url "problem_select" test.id %}"><img src="/static/addexisting.png" width="16px" height="16px" alt="addexisting"></a>
+	{% include "footer.html" %}
+</body>
+</html>

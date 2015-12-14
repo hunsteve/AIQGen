@@ -1,0 +1,21 @@
+<html>
+
+<head>
+	<title>print test</title>
+	<link rel="stylesheet" type="text/css" href="/static/printview.css">
+
+</head>
+<body>	
+	<div class="page">			
+		<div class="halfpage rightborder">						
+			<div class="question" style="padding: 0px 0px {{question.freespace}}px 0px;">
+				<div class="questionnumber">{{question.index}}.</div>
+				<div class="resultsquare">/{{question.score}}</div>					
+				{{question.body | safe}}				
+			</div>					
+		</div>	
+		<div class="halfpage">			
+		</div>			
+	</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>Exams</title>	
+	<title>Problems</title>	
 </head>
 
 <body>
@@ -10,20 +10,21 @@
 		<tr>
 			<th>Name</th>
 			<th>Score</th>						
-			<th>V</th>
-			<th>E</th>
-			<th>D</th>
+			<th>View</th>
+			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
-	{% for problem in object_list %}
+	{% for problem in problem_list %}
 		<tr>
 			<td>{{problem.name}}</td>
 			<td>{{problem.score}}</td>
-			<td><a href="{% url "printview" problem.id %}"><img src="static/printview.png" width="16px" height="16px" alt="view"></a></td>
-			<td><a href="{% url "problem_edit" problem.id %}"><img src="static/edit.svg" width="16px" height="16px" alt="edit"></a></td>
-			<td><a href="{% url "problem_delete" problem.id %}"><img src="static/delete.png" width="16px" height="16px" alt="delete"></a></td>
+			<td><a href="{% url "problem_printview" problem.id %}"><img src="/static/printview.png" width="16px" height="16px" alt="view"></a></td>
+			<td><a href="{% url "problem_edit" problem.id %}"><img src="/static/edit.svg" width="16px" height="16px" alt="edit"></a></td>
+			<td><a href="{% url "problem_delete" problem.id %}"><img src="/static/delete.png" width="16px" height="16px" alt="delete"></a></td>
 		</tr>
 	{% endfor %}	
 	</table>
-	<a href="{% url "problem_new" %}"><img src="static/new.svg" width="16px" height="16px" alt="new"></a>	
+	<a href="{% url "problem_new" %}"><img src="/static/new.svg" width="16px" height="16px" alt="new"></a>	
+	{% include "footer.html" %}
 </body>
 </html>

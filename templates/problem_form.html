@@ -6,6 +6,7 @@
 <form method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Done" />
+    {% if usescript %}
     <script>
 	    CKEDITOR.replace( 'id_text', {
 		    filebrowserUploadUrl: '{% url "upload" %}'
@@ -46,5 +47,6 @@
 		  }
 		});
 	</script>
+	{% endif %}
 </form>
 </body>

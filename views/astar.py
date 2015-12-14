@@ -164,3 +164,11 @@ def astar(request):
 
     return HttpResponse(html)
 
+'''
+                <div style="float: right;">
+                    {{question.extra | safe}}
+                </div>
+                <p align="justify">{{question.text | safe}}</p>                     
+                <div style=" clear:both;"></div>
+                {{question.answer | safe}}
+'''

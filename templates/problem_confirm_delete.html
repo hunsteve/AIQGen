@@ -1,4 +1,4 @@
 <form method="post">{% csrf_token %}
-    Are you sure you want to delete "{{object.date|date:"Y. m. d."}} {{object.name}} {{object.group}}" ?
+    Are you sure you want to delete "{{problem.name}}" ?
     <input type="submit" value="Delete" />
 </form>
