@@ -8,7 +8,7 @@ from AIQGen.views.problemprintview import problemPrintView
 from AIQGen.views.test import testList, testCreate, testUpdate, testDelete, testProblemList, testProblemRemove, testProblemAdd
 from AIQGen.views.problem import problemList, problemCreate, problemUpdate, problemDelete, problemSelect
 from AIQGen.views.upload import upload
-
+from AIQGen.whovisitedme import whovisitedme, listlog
 
 
 urlpatterns = [
@@ -38,4 +38,7 @@ urlpatterns = [
     url(r'^problemdelete/(?P<pk>\d+)$', problemDelete, name='problem_delete'),
 
     url(r'^upload$', upload, name='upload'),
+
+    url(r'^log$', whovisitedme, name='whovisitedme'),
+    url(r'^listlog$', listlog, name='listlog'),
 ]
